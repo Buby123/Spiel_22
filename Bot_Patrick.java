@@ -20,13 +20,14 @@ public class Bot_Patrick extends Player
     
     String path;
 
-    public Bot_Patrick(){
+    public Bot_Patrick(String name){
         path = ".\\dataset_22_o6.csv";
         read_csv(array_22);
         
         average = 22.0/8;
         abweichungOben = 2.247;
         abweichungUnten = 2.643;
+        this.name = name;
     }
     
     public boolean rate_throw(int roled_dice){
@@ -161,7 +162,7 @@ public class Bot_Patrick extends Player
             len_scores_without_0++;
         }
         
-        //System.out.println("Laenge Scores check_next: " + len_scores_without_0);
+        System.out.println("Laenge Scores check_next: " + len_scores_without_0);
         
         for(int i=0; i<array.size(); i++){
             if(array.get(i)[len_scores_without_0] == 1){

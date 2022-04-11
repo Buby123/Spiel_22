@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Bot_Patrick
-comment1.params=
-comment1.target=Bot_Patrick()
+comment1.params=name
+comment1.target=Bot_Patrick(java.lang.String)
 comment2.params=roled_dice
 comment2.target=boolean\ rate_throw(int)
 comment3.params=current_value\ num_rated\ num_throws

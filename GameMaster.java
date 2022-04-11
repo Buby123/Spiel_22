@@ -30,7 +30,6 @@ public class GameMaster
     public Player[] play_game(){
         int current_values[] = new int[list_player.size()];
         int num_rated[] = new int[list_player.size()];
-        
         for(int i=0; i<13; i++){
             int current_throw = 1 + (int)(Math.random()*6);
             System.out.println("Es wurde eine " + current_throw + " gewürfelt!");
@@ -53,26 +52,33 @@ public class GameMaster
                 }
             }
         }
+
+        int differences[] = new int[list_player.size()];
         for(int i=0; i<list_player.size(); i++) {
-            current_values[i] = Math.abs(current_values[i]-22);
+            differences[i] = Math.abs(current_values[i]-22);
         }
+        
         Player ranked_players[] = new Player[list_player.size()];
+        int[] ranked_index = new int[list_player.size()];
         for(int i=0; i<list_player.size(); i++) {
             int best_value = Integer.MAX_VALUE;
             int best_index = -1;
             for(int j=0; j<list_player.size(); j++) {
-                if(current_values[j] < best_value) {
-                    best_value = current_values[j];
+                if(differences[j] < best_value) {
+                    best_value = differences[j];
                     best_index = j;
                 }
             }
+            ranked_index[i] = best_index;
             ranked_players[i] = list_player.get(best_index);
-            current_values[i] = Integer.MAX_VALUE;
+            differences[i] = Integer.MAX_VALUE;
         }
+        
         if(with_comments) {
             System.out.println("Die Reihenfolge der Platzierung lautet:");
             for(int i=0; i<ranked_players.length; i++) {
-                System.out.println(ranked_players[i].get_name());
+                System.out.println(ranked_players[i].get_name() + " mit " + current_values[ranked_index[i]]);
+                
             }
         }
         
