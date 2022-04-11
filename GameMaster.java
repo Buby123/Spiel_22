@@ -12,6 +12,7 @@ public class GameMaster
 {
     // Jeder Klasse ein Objekt 
     ArrayList<Player> list_player = new ArrayList<Player>();
+    
     public void GameMaster(){
         
     }
@@ -31,7 +32,7 @@ public class GameMaster
         
         for(int i=0; i<13; i++){
             for(int j=0; j<list_player.size(); j++){
-                list_player.get(j).update_gamedata(current_values[j], num_rated[j]);
+                list_player.get(j).update_gamedata(current_values[j], num_rated[j], j);
                 if(i-num_rated[j] >= 5) {
                     current_values[j] += current_throw;
                     num_rated[j]++;
