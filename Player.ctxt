@@ -2,6 +2,8 @@
 comment0.target=Player
 comment1.params=rolled_dice
 comment1.target=boolean\ rate_throw(int)
-comment2.params=current_value\ num_rated
-comment2.target=void\ update_gamedata(int,\ int)
-numComments=3
+comment2.params=current_value\ num_rated\ num_throws
+comment2.target=void\ update_gamedata(int,\ int,\ int)
+comment3.params=
+comment3.target=java.lang.String\ get_name()
+numComments=4
