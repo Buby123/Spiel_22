@@ -2,9 +2,11 @@
 comment0.target=GameMaster
 comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ GameMaster.\r\n\ \r\n\ @author\ (Ihr\ Name)\ \r\n\ @version\ (eine\ Versionsnummer\ oder\ ein\ Datum)\r\n
 comment1.params=
-comment1.target=GameMaster()
-comment1.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ GameMaster\r\n
-comment2.params=y
-comment2.target=int\ beispielMethode(int)
-comment2.text=\r\n\ Ein\ Beispiel\ einer\ Methode\ -\ ersetzen\ Sie\ diesen\ Kommentar\ mit\ Ihrem\ eigenen\r\n\ \r\n\ @param\ \ y\ \ \ \ ein\ Beispielparameter\ f\u00FCr\ eine\ Methode\r\n\ @return\ \ \ \ \ \ \ \ die\ Summe\ aus\ x\ und\ y\r\n
-numComments=3
+comment1.target=void\ GameMaster()
+comment2.params=player
+comment2.target=void\ add_player(Player)
+comment3.params=player
+comment3.target=void\ remove_player(Player)
+comment4.params=
+comment4.target=Player[]\ play_game()
+numComments=5
