@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import java.lang.Math;
 /**
  * Beschreiben Sie hier die Klasse GameMaster.
  * 
@@ -7,27 +10,34 @@
  */
 public class GameMaster
 {
-    // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-    private int x;
-
-    /**
-     * Konstruktor für Objekte der Klasse GameMaster
-     */
-    public GameMaster()
-    {
-        // Instanzvariable initialisieren
-        x = 0;
+    // Jeder Klasse ein Objekt 
+    ArrayList<Player> list_player = new ArrayList<Player>();
+    public void GameMaster(){
+        
     }
-
-    /**
-     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
-     * 
-     * @param  y    ein Beispielparameter für eine Methode
-     * @return        die Summe aus x und y
-     */
-    public int beispielMethode(int y)
-    {
-        // tragen Sie hier den Code ein
-        return x + y;
+    
+    public void add_player(Player player){
+        list_player.add(player);
     }
+    
+    public void remove_player(Player player){
+        list_player.remove(player);
+    }
+    
+    public ArrayList<Player> game(){
+        for(int i=0; i<13; i++){
+            int aktWurf = 1 + (int)Math.random()*6;
+            
+            for(int x=0; x<list_player.length; x++){
+                
+            }
+        }
+        
+        
+        return list_player;
+    }
+    // Anzahl Test festlegen 
+    
+    // 1. Wuefelt und übergibt zahl an Spieler
+    // 2. Ergebnisse erhalten und auswerten
 }
