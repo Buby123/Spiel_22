@@ -33,14 +33,14 @@ public class GameMaster
         
         for(int i=0; i<13; i++){
             int current_throw = 1 + (int)(Math.random()*6);
-            System.out.println("Es wurde eine " + current_throw + " gewürfelt!");
+            if(with_comments)System.out.println("Es wurde eine " + current_throw + " gewürfelt!");
             for(int j=0; j<list_player.size(); j++){
                 list_player.get(j).update_gamedata(current_values[j], num_rated[j], j);
                 if(i-num_rated[j] >= 5) {
                     current_values[j] += current_throw;
                     num_rated[j]++;
                     
-                    if(with_comments)System.out.println(list_player.get(j).get_name() + " muss den Wurf genommen.");
+                    if(with_comments)System.out.println(list_player.get(j).get_name() + " muss den Wurf nehmen.");
                 }
                 else if(list_player.get(j).rate_throw(current_throw) && num_rated[j] < 8) {
                     current_values[j] += current_throw;
@@ -53,6 +53,7 @@ public class GameMaster
                 }
             }
         }
+        
         for(int i=0; i<list_player.size(); i++) {
             current_values[i] = Math.abs(current_values[i]-22);
         }
@@ -67,7 +68,7 @@ public class GameMaster
                 }
             }
             ranked_players[i] = list_player.get(best_index);
-            current_values[i] = Integer.MAX_VALUE;
+            current_values[best_index] = Integer.MAX_VALUE;
         }
         if(with_comments) {
             System.out.println("Die Reihenfolge der Platzierung lautet:");
