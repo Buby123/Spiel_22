@@ -34,11 +34,11 @@ public class GameMaster
         Player p1 = new Bot_Patrick("Patrick");
         Player p2 = new Bot_Tim("Tim");
         Player p3 = new Bot_Konrad("Konrad");
-        Player p4 = new Bot_Konrad_Trained_To_Win("Konrad2");
+        //Player p4 = new Bot_Konrad_Trained_To_Win("Konrad2");
         this.add_player(p1);
         this.add_player(p2);
         this.add_player(p3);
-        this.add_player(p4);
+        //this.add_player(p4);
     }
     
     /**
@@ -119,16 +119,7 @@ public class GameMaster
             }
         }
         
-        for(int i=0; i<list_player.size(); i++) {
-            if(i == 0){
-
-                list_player.get(i).game_ended(true);
-            } else {
-                list_player.get(i).game_ended(false);
-            }
-            
-            differences[i] = Math.abs(current_values[i]-22);
-        }
+        
 
         if(with_comments) {
             System.out.println("Die Reihenfolge der Platzierung lautet:");
@@ -146,6 +137,16 @@ public class GameMaster
             if(best_value == differences[i]){
                 winners.add(list_player.get(i));
             }
+        }
+        
+        for(int i=0; i<list_player.size(); i++) {
+            boolean winned = false;
+            for(Player e : winners){
+                if(list_player.get(i) == e){
+                    winned = true;
+                }
+            }
+            list_player.get(i).game_ended(winned);
         }
         return winners;
     }

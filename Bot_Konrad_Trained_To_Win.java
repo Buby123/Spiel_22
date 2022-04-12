@@ -31,8 +31,11 @@ public class Bot_Konrad_Trained_To_Win extends Player
             for(int i2=5; i2>=0; i2--){
                 for(int i3=47; i3>=0; i3--){
                     if(winned_game){
-                        if(32767 >= (long)diagramm[i][i2][i3] + (long)wuerfe[i][i2][i3] && -32767 >= (long)diagramm[i][i2][i3] + (long)wuerfe[i][i2][i3])
+                        if(32767 >= (long)diagramm[i][i2][i3] + (long)wuerfe[i][i2][i3] && -32767 <= (long)diagramm[i][i2][i3] + (long)wuerfe[i][i2][i3])
                             diagramm[i][i2][i3] += wuerfe[i][i2][i3];
+                    } else {
+                        if(32767 >= (long)diagramm[i][i2][i3] - (long)wuerfe[i][i2][i3] && -32767 <= (long)diagramm[i][i2][i3] - (long)wuerfe[i][i2][i3])
+                            diagramm[i][i2][i3] -= wuerfe[i][i2][i3];
                     }
                     wuerfe[i][i2][i3] = 0;
                 }
@@ -84,7 +87,7 @@ public class Bot_Konrad_Trained_To_Win extends Player
     /*
      * Speichert die Tabelle diagramm
      */
-    private void SaveData(){
+    public void SaveData(){
         String new_data = "";
 
         for(int i=12; i>=0; i--){
@@ -114,13 +117,13 @@ public class Bot_Konrad_Trained_To_Win extends Player
     public boolean rate_throw(int rolled_dice){
         num_throws++;
 
-        double gewicht = 0; 
+        double gewicht = (int)diagramm[num_throws-1][rolled_dice-1][current_value]; 
 
         int difDurchlauf = 1;
         int difAugenzahl = 0;
         int difStand = 0;
         double distMax = CalcDistance(difDurchlauf, difAugenzahl, difStand);
-        for(int durchl=-difDurchlauf; durchl <= difDurchlauf; durchl += 1){
+        /*for(int durchl=-difDurchlauf; durchl <= difDurchlauf; durchl += 1){
             for(int augenz=-difAugenzahl; augenz <= difAugenzahl; augenz += 1){
                 for(int stand=-difStand; stand <= difStand; stand += 1){
                     if(num_throws-1+durchl < 13 && rolled_dice-1+augenz < 6 && current_value+stand<48 && num_throws-1+durchl >= 0 && rolled_dice-1+augenz >= 0 && current_value+stand>=0){
@@ -134,7 +137,7 @@ public class Bot_Konrad_Trained_To_Win extends Player
                     }
                 }
             }
-        }
+        }*/
 
         if((int)(Math.random()*10000) <= 5000 + gewicht){
             //Werten
