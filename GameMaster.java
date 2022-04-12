@@ -66,6 +66,7 @@ public class GameMaster
             if(with_comments)System.out.println("Es wurde eine " + current_throw + " gewürfelt!");
             for(int j=0; j<list_player.size(); j++){
                 list_player.get(j).update_gamedata(current_values[j], num_rated[j], i);
+                
                 if(i-num_rated[j] >= 5) {
                     current_values[j] += current_throw;
                     num_rated[j]++;
@@ -81,6 +82,8 @@ public class GameMaster
                 else {
                     if(with_comments)System.out.println(list_player.get(j).get_name() + " hat den Wurf nicht genommen.");
                 }
+                
+                list_player.get(j).update_gamedata(current_values[j], num_rated[j], i);
             }
         }
         
