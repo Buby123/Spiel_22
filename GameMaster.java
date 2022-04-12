@@ -17,12 +17,19 @@ public class GameMaster
     // Jeder Klasse ein Objekt 
     ArrayList<Player> list_player = new ArrayList<Player>();
     
-    boolean with_comments = false;
+    boolean with_comments = true;
     
+    /**
+     * Leerer Konstruktor
+     */
     public void GameMaster(){
         
     }
     
+    /**
+     * Method to initialise object of all bot
+     * Easier to start play_game methode
+     */
     public void add_all_player() {
         Player p1 = new Bot_Patrick("Patrick");
         Player p2 = new Bot_Tim("Tim");
@@ -30,15 +37,27 @@ public class GameMaster
         this.add_player(p2);
     }
     
+    /**
+     * Add new Player Object to list of player objects
+     */
     public void add_player(Player player){
         list_player.add(player);
     }
     
+    /**
+     * Remove the selected Player object from list of objects
+     */
     public void remove_player(Player player){
         list_player.remove(player);
     }
     
-    //public Player[] play_game(){
+    /**
+     * Game method
+     * Takes in all player object that are selected in the player list and gives them in the same dice value
+     * For every of the 13 loop the player object must give back a boolean --> true for take the throw and false for discard the throw
+     * 
+     * Methode returns the sorted list of player object (winner is the first), in detail the result is printed in terminal
+     */
     public ArrayList<Player> play_game(){
         int current_values[] = new int[list_player.size()];
         int num_rated[] = new int[list_player.size()];
@@ -112,9 +131,14 @@ public class GameMaster
         return winners;
     }
     
+    /**
+     * Methode for running a certain amount of times (parameter int) by using play_game methode serveral times
+     * 
+     * Result is printed in terminal
+     */
     public void many_runs(int number_runs){
         ArrayList<Player> winners;
-        
+
         Dictionary<Player, Integer> dic = new Hashtable<Player, Integer>();
         for(int i=0; i<list_player.size(); i++){
             dic.put(list_player.get(i), 0);
