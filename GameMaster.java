@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
 import java.lang.Math;
 /**
  * Beschreiben Sie hier die Klasse GameMaster.
@@ -13,7 +17,7 @@ public class GameMaster
     // Jeder Klasse ein Objekt 
     ArrayList<Player> list_player = new ArrayList<Player>();
     
-    boolean with_comments = true;
+    boolean with_comments = false;
     
     public void GameMaster(){
         
@@ -27,14 +31,15 @@ public class GameMaster
         list_player.remove(player);
     }
     
-    public Player[] play_game(){
+    //public Player[] play_game(){
+    public ArrayList<Player> play_game(){
         int current_values[] = new int[list_player.size()];
         int num_rated[] = new int[list_player.size()];
         for(int i=0; i<13; i++){
             int current_throw = 1 + (int)(Math.random()*6);
-            System.out.println("Es wurde eine " + current_throw + " gewürfelt!");
+            if(with_comments)System.out.println("Es wurde eine " + current_throw + " gewürfelt!");
             for(int j=0; j<list_player.size(); j++){
-                list_player.get(j).update_gamedata(current_values[j], num_rated[j], j);
+                list_player.get(j).update_gamedata(current_values[j], num_rated[j], i);
                 if(i-num_rated[j] >= 5) {
                     current_values[j] += current_throw;
                     num_rated[j]++;
@@ -52,40 +57,73 @@ public class GameMaster
                 }
             }
         }
-
+        
+        if(with_comments)System.out.println("Prepare final result");
+        
         int differences[] = new int[list_player.size()];
         for(int i=0; i<list_player.size(); i++) {
             differences[i] = Math.abs(current_values[i]-22);
         }
         
-        Player ranked_players[] = new Player[list_player.size()];
-        int[] ranked_index = new int[list_player.size()];
-        for(int i=0; i<list_player.size(); i++) {
-            int best_value = Integer.MAX_VALUE;
-            int best_index = -1;
-            for(int j=0; j<list_player.size(); j++) {
-                if(differences[j] < best_value) {
-                    best_value = differences[j];
-                    best_index = j;
+        int temp = 0;
+        Player temp_player;
+        for(int i=0; i<list_player.size(); i++){
+            for(int j=0; j<list_player.size()-1; j++){
+                if(differences[j] > differences[j+1]){
+                    temp = differences[j];
+                    differences[j] = differences[j+1];
+                    differences[j+1] = temp;
+                    
+                    temp = current_values[j];
+                    current_values[j] = current_values[j+1];
+                    current_values[j+1] = temp;
+                    
+                    temp_player = list_player.get(j);
+                    list_player.set(i, list_player.get(i+1));
+                    list_player.set(i+1, temp_player);
                 }
             }
-            ranked_index[i] = best_index;
-            ranked_players[i] = list_player.get(best_index);
-            differences[i] = Integer.MAX_VALUE;
         }
         
         if(with_comments) {
             System.out.println("Die Reihenfolge der Platzierung lautet:");
-            for(int i=0; i<ranked_players.length; i++) {
-                System.out.println(ranked_players[i].get_name() + " mit " + current_values[ranked_index[i]]);
+            for(int i=0; i<list_player.size(); i++) {
+                System.out.println(list_player.get(i).get_name() + " mit " + current_values[i] + " Punkten");
                 
             }
         }
         
-        return ranked_players;
+        ArrayList<Player> winners = new ArrayList<Player>();
+        winners.clear();
+        int best_value = differences[0];
+        
+        for(int i=0; i<list_player.size(); i++){
+            if(best_value == differences[i]){
+                winners.add(list_player.get(i));
+            }
+        }
+        return winners;
+        //return list_player;
     }
-    // Anzahl Test festlegen 
     
-    // 1. Wuefelt und übergibt zahl an Spieler
-    // 2. Ergebnisse erhalten und auswerten
+    public void many_runs(int number_runs){
+        ArrayList<Player> winners;
+        
+        Dictionary<Player, Integer> dic = new Hashtable<Player, Integer>();
+        for(int i=0; i<list_player.size(); i++){
+            dic.put(list_player.get(i), 0);
+        }
+        
+        for(int i=0; i<number_runs; i++){
+            winners = play_game();
+            
+            for(int j=0; j<winners.size(); j++){
+                dic.put(winners.get(j), dic.get(winners.get(j)) + 1);
+            }
+        }
+        
+        for(int i=0; i<dic.size(); i++){
+             System.out.println("Spieler: " + list_player.get(i).get_name() + " hat " + dic.get(list_player.get(i)) + " Runden gewonnen.");
+        }
+    }
 }

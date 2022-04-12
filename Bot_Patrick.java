@@ -14,6 +14,8 @@ public class Bot_Patrick extends Player
     int[] scores = {0,0,0,0,0,0,0,0};
     int fuenf_num = 0;
     
+    int skip = 0;
+    
     private double average;
     private double abweichungOben;
     private double abweichungUnten;
@@ -31,13 +33,19 @@ public class Bot_Patrick extends Player
     }
     
     public boolean rate_throw(int roled_dice){
-    
+        if(num_throws == 0){
+            //System.out.println("Reset");
+            reset();
+        }
+        
         if(roled_dice == 6){
+            //System.out.println("--- Skip 6 ---");
             return false;
         }
         
         if(roled_dice == 5){
             if (fuenf_num == 2){
+                //System.out.println("--- Skip 5 ---");
                 fuenf_num = 0;
                 return false;
             }
@@ -47,9 +55,20 @@ public class Bot_Patrick extends Player
         }
             
         
-        if((num_throws - num_rated) < 1){
+        if(skip < 1){
+            //System.out.println("\n------" + " Normal Mode " + "------");
+            //System.out.println("Würfe : " + num_throws);
+            //System.out.println("Gewertet: " + num_rated);
+            //System.out.println("Aktwurf: "+ roled_dice);
             reduce(array_22, scores);
             boolean[] next = check_next(array_22, scores);
+            
+            //for(int i=0; i<next.length; i++){
+            //    if(next[i]==true){
+            //       System.out.print(i+1); 
+            //    }
+            //}
+            //System.out.println();
             
             for(int i=0; i<6; i++){
                     if(roled_dice==(i+1) && next[i]){
@@ -62,24 +81,49 @@ public class Bot_Patrick extends Player
                             } 
                         }
                         else{
+                            //System.out.println("Skip from normal mode");
+                            skip++;
                             return false;
                         }
                     }
             }
+            
+            //System.out.println("Scores: ");
+            //for(int x=0; x<8; x++){
+            //    System.out.print(scores[x] + " ");
+            //}
+            //System.out.println("Stand: " + current_value);
             return false;
         }
         
         else{
+            //System.out.println("\n------" + " Skipped Mode " + "------");
+            //System.out.println("Würfe : " + num_throws);
+            //System.out.println("Gewertet: " + num_rated);
+            //System.out.println("Aktwurf: "+ roled_dice);
             if(entscheideWurf(roled_dice)) {
                     for(int i=0; i<scores.length; i++){
                         if(scores[i] == 0){
                             scores[i] = roled_dice;
+                            
+                            //System.out.println("Scores: ");
+                            //for(int x=0; x<8; x++){
+                            //    System.out.print(scores[x] + " ");
+                            //}
+                            //System.out.println("Stand: " + current_value);
+                            
                             return true;
                         }
                     }
                     return false;
             }
             else{
+                //System.out.print("--- Skip Skip ---");
+                //System.out.println("Scores: ");
+                //for(int x=0; x<8; x++){
+                //    System.out.print(scores[x] + " ");
+                //}
+                //System.out.println("Stand: " + current_value);
                 return false;
             }
         }
@@ -162,29 +206,47 @@ public class Bot_Patrick extends Player
             len_scores_without_0++;
         }
         
-        System.out.println("Laenge Scores check_next: " + len_scores_without_0);
+        //System.out.println("Laenge Scores check_next: " + len_scores_without_0);
         
         for(int i=0; i<array.size(); i++){
-            if(array.get(i)[len_scores_without_0] == 1){
-                result[0] = true;
-            }
-            if(array.get(i)[len_scores_without_0] == 2){
-                result[1] = true;
-            }
-            if(array.get(i)[len_scores_without_0] == 3){
-                result[2] = true;
-            }
-            if(array.get(i)[len_scores_without_0] == 4){
-                result[3] = true;
-            }
-            if(array.get(i)[len_scores_without_0] == 5){
-                result[4] = true;
-            }
-            if(array.get(i)[len_scores_without_0] == 6){
-                result[5] = true;
+            if(len_scores_without_0<8){
+                if(array.get(i)[len_scores_without_0] == 1){
+                    result[0] = true;
+                }
+                if(array.get(i)[len_scores_without_0] == 2){
+                    result[1] = true;
+                }
+                if(array.get(i)[len_scores_without_0] == 3){
+                    result[2] = true;
+                }
+                if(array.get(i)[len_scores_without_0] == 4){
+                    result[3] = true;
+                }
+                if(array.get(i)[len_scores_without_0] == 5){
+                    result[4] = true;
+                }
+                if(array.get(i)[len_scores_without_0] == 6){
+                    result[5] = true;
+                }
             }
         }
         
         return result;
+    }
+    
+    private void reset(){
+        array_22.clear();
+        read_csv(array_22);
+        
+        for(int i=0; i<scores.length; i++){
+            scores[i] = 0;
+        }
+        fuenf_num = 0;
+        skip = 0;
+        
+
+        average = 22.0/8;
+        abweichungOben = 2.247;
+        abweichungUnten = 2.643;
     }
 }

@@ -8,4 +8,6 @@ comment3.params=current_value\ num_rated\ num_throws
 comment3.target=void\ update_gamedata(int,\ int,\ int)
 comment4.params=role_dice
 comment4.target=boolean\ entscheideWurf(int)
-numComments=5
+comment5.params=
+comment5.target=void\ reset()
+numComments=6
