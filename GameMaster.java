@@ -44,7 +44,7 @@ public class GameMaster
                     current_values[j] += current_throw;
                     num_rated[j]++;
                     
-                    if(with_comments)System.out.println(list_player.get(j).get_name() + " muss den Wurf genommen.");
+                    if(with_comments)System.out.println(list_player.get(j).get_name() + " muss den Wurf nehmen.");
                 }
                 else if(list_player.get(j).rate_throw(current_throw) && num_rated[j] < 8) {
                     current_values[j] += current_throw;
@@ -58,9 +58,9 @@ public class GameMaster
             }
         }
         
-        if(with_comments)System.out.println("Prepare final result");
         
         int differences[] = new int[list_player.size()];
+
         for(int i=0; i<list_player.size(); i++) {
             differences[i] = Math.abs(current_values[i]-22);
         }
@@ -84,7 +84,7 @@ public class GameMaster
                 }
             }
         }
-        
+
         if(with_comments) {
             System.out.println("Die Reihenfolge der Platzierung lautet:");
             for(int i=0; i<list_player.size(); i++) {
@@ -103,7 +103,6 @@ public class GameMaster
             }
         }
         return winners;
-        //return list_player;
     }
     
     public void many_runs(int number_runs){
