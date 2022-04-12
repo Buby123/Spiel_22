@@ -17,4 +17,8 @@ public abstract class Player
     public String get_name() {
         return name;
     }
+    
+    public void game_ended() {
+        
+    }
 }

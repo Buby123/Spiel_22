@@ -69,6 +69,7 @@ public class GameMaster
         int differences[] = new int[list_player.size()];
 
         for(int i=0; i<list_player.size(); i++) {
+            list_player.get(i).game_ended();
             differences[i] = Math.abs(current_values[i]-22);
         }
         
