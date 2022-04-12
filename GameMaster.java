@@ -17,7 +17,7 @@ public class GameMaster
     // Jeder Klasse ein Objekt 
     ArrayList<Player> list_player = new ArrayList<Player>();
     
-    boolean with_comments = true;
+    boolean with_comments = false;
     
     /**
      * Leerer Konstruktor
