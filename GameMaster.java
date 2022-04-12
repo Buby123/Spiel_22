@@ -23,6 +23,13 @@ public class GameMaster
         
     }
     
+    public void add_all_player() {
+        Player p1 = new Bot_Patrick("Patrick");
+        Player p2 = new Bot_Tim("Tim");
+        this.add_player(p1);
+        this.add_player(p2);
+    }
+    
     public void add_player(Player player){
         list_player.add(player);
     }
