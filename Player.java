@@ -2,9 +2,9 @@
 public abstract class Player
 {
     protected String name = "";
-    protected int current_value;
-    protected int num_rated;
-    protected int num_throws;
+    protected int current_value = 0;
+    protected int num_rated = 0;
+    protected int num_throws = 0;
     
     abstract boolean rate_throw(int rolled_dice);
     
@@ -16,5 +16,9 @@ public abstract class Player
     
     public String get_name() {
         return name;
+    }
+    
+    public void game_ended() {
+        
     }
 }
