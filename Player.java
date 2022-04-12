@@ -18,7 +18,7 @@ public abstract class Player
         return name;
     }
     
-    public void game_ended() {
+    public void game_ended(boolean winned_game) {
         
     }
 }

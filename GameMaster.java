@@ -33,8 +33,12 @@ public class GameMaster
     public void add_all_player() {
         Player p1 = new Bot_Patrick("Patrick");
         Player p2 = new Bot_Tim("Tim");
+        Player p3 = new Bot_Konrad("Konrad");
+        Player p4 = new Bot_Konrad_Trained_To_Win("Konrad2");
         this.add_player(p1);
         this.add_player(p2);
+        this.add_player(p3);
+        this.add_player(p4);
     }
     
     /**
@@ -91,12 +95,12 @@ public class GameMaster
         int differences[] = new int[list_player.size()];
 
         for(int i=0; i<list_player.size(); i++) {
-            list_player.get(i).game_ended();
             differences[i] = Math.abs(current_values[i]-22);
         }
         
         int temp = 0;
         Player temp_player;
+
         for(int i=0; i<list_player.size(); i++){
             for(int j=0; j<list_player.size()-1; j++){
                 if(differences[j] > differences[j+1]){
@@ -109,10 +113,21 @@ public class GameMaster
                     current_values[j+1] = temp;
                     
                     temp_player = list_player.get(j);
-                    list_player.set(i, list_player.get(i+1));
-                    list_player.set(i+1, temp_player);
+                    list_player.set(j, list_player.get(j+1));
+                    list_player.set(j+1, temp_player);
                 }
             }
+        }
+        
+        for(int i=0; i<list_player.size(); i++) {
+            if(i == 0){
+
+                list_player.get(i).game_ended(true);
+            } else {
+                list_player.get(i).game_ended(false);
+            }
+            
+            differences[i] = Math.abs(current_values[i]-22);
         }
 
         if(with_comments) {

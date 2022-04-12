@@ -22,7 +22,8 @@ public class Bot_Konrad extends Player
     /*
      * Konstuktor ruft die Initialisierung auf
      */
-    public Bot_Konrad(){
+    public Bot_Konrad(String name){
+        this.name = name;
         InitBot();
     }
     
@@ -75,7 +76,7 @@ public class Bot_Konrad extends Player
      * Wird aufgerufen am Ende des Spieles,
      * speichert die Werte für die KI
      */
-    public void game_ended() {
+    public void game_ended(boolean winned_game) {
         int score = current_value - 22;
         score = score < 0 ? -score : score;
         
