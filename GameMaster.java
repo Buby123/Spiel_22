@@ -31,13 +31,15 @@ public class GameMaster
      * Easier to start play_game methode
      */
     public void add_all_player() {
-        Player p1 = new Bot_Patrick("Patrick");
+        //Player p1 = new Bot_Patrick("Patrick");
         Player p2 = new Bot_Tim("Tim");
         Player p3 = new Bot_Konrad("Konrad");
+        Player p4 = new Chances_Konrad();
         //Player p4 = new Bot_Konrad_Trained_To_Win("Konrad2");
-        this.add_player(p1);
+        //this.add_player(p1);
         this.add_player(p2);
         this.add_player(p3);
+        this.add_player(p4);
         //this.add_player(p4);
     }
     
