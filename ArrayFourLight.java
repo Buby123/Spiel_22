@@ -31,7 +31,7 @@ public class ArrayFourLight extends Player implements Serializable
     }
 
     public boolean rate_throw(int rolled_dice) {
-        if(num_throws == 22) {
+        if(num_throws == 12 || num_rated == 8) {
             return false;
         }
         

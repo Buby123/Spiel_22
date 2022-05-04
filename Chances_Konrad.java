@@ -28,14 +28,15 @@ public class Chances_Konrad extends Player
     
     int[] beg_search = new int[6];
     
-    public Chances_Konrad(){
+    public Chances_Konrad(String _name){
+        name = _name;
         read_all();
     }
     
     @Override
     public void game_ended(boolean winned_game) {
         rolls_of_game = 0;
-        /*game_count++;
+        game_count++;
         if(winned_game)
             won++;
         if(game_count == 250){
@@ -49,7 +50,7 @@ public class Chances_Konrad extends Player
             System.out.println(won + " " + won_last + ": " + multiplier);
             won_last = won;
             won = 0;
-        }*/
+        }
     }
     
     public boolean rate_throw(int rolled_dice){
