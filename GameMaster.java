@@ -1,9 +1,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import java.util.Collections;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Map;
 
 import java.lang.Math;
 /**
@@ -40,9 +43,9 @@ public class GameMaster
         //Player p4 = new Bot_Konrad_Trained_To_Win("Konrad2");
         //this.add_player(p1);
         this.add_player(p1);
-        //this.add_player(p2);
-        //this.add_player(p3);
-        //this.add_player(p4);
+        this.add_player(p2);
+        this.add_player(p3);
+        this.add_player(p4);
         this.add_player(p5);
         //this.add_player(p4);
     }
@@ -166,9 +169,13 @@ public class GameMaster
      * Result is printed in terminal
      */
     public ArrayList<Player> many_runs(int number_runs){
+        if(list_player.size() == 0){
+            add_all_player();
+        }
+        
         ArrayList<Player> winners = new ArrayList<Player>();
 
-        Dictionary<Player, Integer> dic = new Hashtable<Player, Integer>();
+        Map<Player, Integer> dic = new Hashtable<Player, Integer>();
         for(int i=0; i<list_player.size(); i++){
             dic.put(list_player.get(i), 0);
         }
@@ -181,10 +188,27 @@ public class GameMaster
             }
         }
         
-        for(int i=0; i<dic.size(); i++){
+        /*for(int i=0; i<dic.size(); i++){
              System.out.println("Spieler: " + list_player.get(i).get_name() + " hat " + dic.get(list_player.get(i)) + " Runden gewonnen.");
-        }
+        }*/
         
+        /*for(Map.Entry<Player, Integer> entry : dic.entrySet()){
+            System.out.println("Spieler: " + entry.getKey().get_name() + " hat " + entry.getValue() + " Runden gewonnen.");
+        }*/
+        
+        List<Map.Entry<Player, Integer>> list = new ArrayList<>(dic.entrySet());
+	list.sort(Map.Entry.comparingByValue());
+	Collections.reverse(list);
+	list.forEach(e -> 
+	{
+	    int len = 20 - e.getKey().get_name().length();
+	    String PlaceHolder = "";
+	    for(int i=0; i<len; i++){
+	        PlaceHolder = PlaceHolder.concat(" ");
+	    }
+	    System.out.println("Spieler: " + e.getKey().get_name() + PlaceHolder + "- \t" + e.getValue());
+    	});
+	
         return winners;
     }
 }

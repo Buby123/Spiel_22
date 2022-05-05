@@ -18,7 +18,7 @@ public class Bot_Konrad_Trained_To_Win extends Player
     short[][][] wuerfe = new short[13][6][48];
     private Bot_Tim Untrained_Helper = new Bot_Tim("UntrainedHelper");
     
-    boolean training = false;
+    boolean training = true;
 
     public Bot_Konrad_Trained_To_Win(String name){
         this.name = name;

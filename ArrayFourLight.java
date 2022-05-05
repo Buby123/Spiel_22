@@ -20,7 +20,7 @@ public class ArrayFourLight extends Player implements Serializable
     private boolean [][][][] myOracle;
 
     public ArrayFourLight(String neuName) {
-        super();
+        name = neuName;
 
         try{
             FileInputStream fis = new FileInputStream("myOracle.txt");
