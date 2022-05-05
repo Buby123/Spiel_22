@@ -17,6 +17,8 @@ public class Bot_Konrad_Trained_To_Win extends Player
     private short[][][] diagramm = new short[13][6][48];
     short[][][] wuerfe = new short[13][6][48];
     private Bot_Tim Untrained_Helper = new Bot_Tim("UntrainedHelper");
+    
+    boolean training = false;
 
     public Bot_Konrad_Trained_To_Win(String name){
         this.name = name;
@@ -144,21 +146,25 @@ public class Bot_Konrad_Trained_To_Win extends Player
             Untrained_Helper.update_gamedata(current_value, num_rated, num_throws-1);
             if(Untrained_Helper.rate_throw(rolled_dice)){
                 //Werten
-                wuerfe[num_throws-1][rolled_dice-1][current_value] = (short)1; 
+                if(training)
+                    wuerfe[num_throws-1][rolled_dice-1][current_value] = (short)1; 
                 return true;
             } else {
                 //Nicht Werten
-                wuerfe[num_throws-1][rolled_dice-1][current_value] = (short)-1;   
+                if(training)
+                    wuerfe[num_throws-1][rolled_dice-1][current_value] = (short)-1;   
                 return false;
             }
         } else {
             if((int)(Math.random()*100) <= 50 + gewicht){
                 //Werten
-                wuerfe[num_throws-1][rolled_dice-1][current_value] = (short)1; 
+                if(training)
+                    wuerfe[num_throws-1][rolled_dice-1][current_value] = (short)1; 
                 return true;
             } else {
                 //Nicht Werten
-                wuerfe[num_throws-1][rolled_dice-1][current_value] = (short)-1;   
+                if(training)
+                    wuerfe[num_throws-1][rolled_dice-1][current_value] = (short)-1;   
                 return false;
             }
         }

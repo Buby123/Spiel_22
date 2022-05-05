@@ -36,12 +36,14 @@ public class GameMaster
         Player p2 = new Bot_Tim("Tim");
         Player p3 = new Bot_Konrad("Konrad");
         Player p4 = new Chances_Konrad("KonradInBesser");
+        Player p5 = new Bot_Konrad_Trained_To_Win("Moin!");
         //Player p4 = new Bot_Konrad_Trained_To_Win("Konrad2");
         //this.add_player(p1);
         this.add_player(p1);
-        this.add_player(p2);
-        this.add_player(p3);
-        this.add_player(p4);
+        //this.add_player(p2);
+        //this.add_player(p3);
+        //this.add_player(p4);
+        this.add_player(p5);
         //this.add_player(p4);
     }
     

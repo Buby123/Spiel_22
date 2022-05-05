@@ -24,7 +24,13 @@ public class Chances_Konrad extends Player
     int won_last = 0;
     int won = 0;
     double delta = 1;
-    double multiplier = 10.141924662101625;
+    double multiplier = 11;//10.141924662101625;
+    
+    double average = 22.0/8;
+    double divergence_top = 2.247; //2.051492
+    double divergence_bottom = 2.643;//2.437843
+    double delta_top = 0.1;
+    double delta_bottom = 0.1;
     
     int[] beg_search = new int[6];
     
@@ -36,7 +42,7 @@ public class Chances_Konrad extends Player
     @Override
     public void game_ended(boolean winned_game) {
         rolls_of_game = 0;
-        game_count++;
+        /*game_count++;
         if(winned_game)
             won++;
         if(game_count == 250){
@@ -50,32 +56,45 @@ public class Chances_Konrad extends Player
             System.out.println(won + " " + won_last + ": " + multiplier);
             won_last = won;
             won = 0;
-        }
+        }*/
     }
     
     public boolean rate_throw(int rolled_dice){
-        long take_zero = count_poss(rolls_of_game);
-        int poss_rolls = 10 * rolls_of_game;
-        poss_rolls += rolled_dice;
-        //int[] Poss = count_modulo(poss_rolls);
-        long take_dice = count_poss(poss_rolls);
         
-        /*long poss_mult_dice;
-        long poss_mult_zero = 1;//(long)OhneReihenfolgeMitWiederholung(9 - num_rated, 4 - num_throws + num_rated);
-        if(num_rated == 8)
-            poss_mult_dice = 1;//(long)OhneReihenfolgeMitWiederholung(8 - 7, 5 - num_throws + num_rated);
-        else
-            poss_mult_dice = 1;//(long)OhneReihenfolgeMitWiederholung(8 - num_rated, 5 - num_throws + num_rated);*/
-        
-        //System.out.println(poss_mult_zero * take_zero + "   \t\t" + take_dice * poss_mult_dice *multiplier);
-        
-        if(/*poss_mult_zero*/take_zero > take_dice/*poss_mult_dice*/*multiplier){
-            //System.out.println("Take not " + rolled_dice);
-            return false;
+        if(current_value > 22){
+            int unrated = 5 - num_throws + num_throws;
+            
+            if(rolled_dice <= average + divergence_top + unrated * delta_top && rolled_dice >= average - divergence_bottom - unrated * delta_bottom) {
+                return true;
+            }
+            else {
+                return false;
+            }
         } else {
-            //System.out.println("Take     " + rolled_dice);
-            rolls_of_game = poss_rolls;
-            return true;
+            long take_zero = count_poss(rolls_of_game);
+            int poss_rolls = 10 * rolls_of_game;
+            poss_rolls += rolled_dice;
+        
+            //int[] Poss = count_modulo(poss_rolls);
+            long take_dice = count_poss(poss_rolls);
+        
+            //long poss_mult_dice;
+            //long poss_mult_zero = (long)OhneReihenfolgeMitWiederholung(9 - num_rated, 4 - num_throws + num_rated);
+            //if(num_rated == 8)
+            //    poss_mult_dice = (long)OhneReihenfolgeMitWiederholung(8 - 7, 5 - num_throws + num_rated);
+            //else
+            //    poss_mult_dice = (long)OhneReihenfolgeMitWiederholung(8 - num_rated, 5 - num_throws + num_rated);
+        
+            //System.out.println(poss_mult_zero * take_zero + "   \t\t" + take_dice * poss_mult_dice *multiplier);
+        
+            if(/*poss_mult_zero*/take_zero > take_dice/*poss_mult_dice*/*multiplier){
+                //System.out.println("Take not " + rolled_dice);
+                return false;
+            } else {
+                //System.out.println("Take     " + rolled_dice);
+                rolls_of_game = poss_rolls;
+                return true;
+            }   
         }
     }
     
@@ -95,15 +114,6 @@ public class Chances_Konrad extends Player
         return fakultät(n-1) * n;
     }
     
-    /*public long count_together(int rolls){
-        //sum = (long)count_poss(rolls, Poss20)/4;
-        //sum += (long)count_poss(rolls, Poss21)/2;
-        long sum = (long)count_poss(rolls, Poss22);
-        //sum += (long)count_poss(rolls, Poss23)/2;
-        //sum += (long)count_poss(rolls, Poss24)/4;
-        return sum;
-    }*/
-    
     public int[] count_modulo(int rolls){
         int[] Outputs = new int[2];
         
@@ -119,19 +129,18 @@ public class Chances_Konrad extends Player
         int teiler = (int)Math.pow(10, digits);
         int teiler2 = teiler / 10;
         boolean searchBoth = true;
-        if(teiler2 == 1){
+        if(teiler2 == 1 || teiler2 == 0){
             Outputs[1] = Poss22.size(); 
             searchBoth = false;
         }
-        
             
         for(int e : Poss22){
             if(searchBoth){
                 if(e%teiler2 == rolls2){
                     Outputs[1]++;
-                    if(e%teiler == rolls){
-                        Outputs[0]++;
-                    }
+                }
+                if(e%teiler == rolls){
+                    Outputs[0]++;
                 }
             } else {
                 if(e%teiler == rolls){
