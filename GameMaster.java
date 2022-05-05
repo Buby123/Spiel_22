@@ -83,7 +83,10 @@ public class GameMaster
                     
                     if(with_comments)System.out.println(list_player.get(j).get_name() + " muss den Wurf nehmen.");
                 }
-                else if(list_player.get(j).rate_throw(current_throw) && num_rated[j] < 8) {
+                else if(num_rated[j] >= 8) {
+                    if(with_comments)System.out.println(list_player.get(j).get_name() + " kann den Wurf nicht mehr nehmen.");
+                }
+                else if(list_player.get(j).rate_throw(current_throw)) {
                     current_values[j] += current_throw;
                     num_rated[j]++;
                     
@@ -162,8 +165,8 @@ public class GameMaster
      * 
      * Result is printed in terminal
      */
-    public void many_runs(int number_runs){
-        ArrayList<Player> winners;
+    public ArrayList<Player> many_runs(int number_runs){
+        ArrayList<Player> winners = new ArrayList<Player>();
 
         Dictionary<Player, Integer> dic = new Hashtable<Player, Integer>();
         for(int i=0; i<list_player.size(); i++){
@@ -181,5 +184,7 @@ public class GameMaster
         for(int i=0; i<dic.size(); i++){
              System.out.println("Spieler: " + list_player.get(i).get_name() + " hat " + dic.get(list_player.get(i)) + " Runden gewonnen.");
         }
+        
+        return winners;
     }
 }

@@ -14,6 +14,8 @@ public class Bot_Tim extends Player
     private double delta_bottom;
     private int unrated;
     
+    private int forced_to_take=0;
+    
     public Bot_Tim(String name) {
         this.average = 22.0/8;
         this.divergence_top = 2.247; //2.051492
